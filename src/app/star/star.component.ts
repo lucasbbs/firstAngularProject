@@ -1,5 +1,4 @@
 import { Component, Input, OnChanges } from '@angular/core';
-import { from } from 'rxjs';
 
 @Component({
   selector: 'app-star',

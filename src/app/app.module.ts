@@ -1,49 +1,32 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
-import { CourseListComponent } from './courses/course-list.component';
-import { StarComponent } from './star/star.component';
-import { replacePipe } from './pipe/replace.pipe';
-import { NavBarComponent } from './nav-bar/nav-bar.component';
+import { CourseModule } from './courses/course.module';
 import { Error404Component } from './error-404/error-404.component';
-import { CourseInfoComponent } from './courses/course-info.component';
 
-//prettier-ignore
 @NgModule({
-  declarations: [
-    AppComponent,
-    CourseListComponent,
-    StarComponent,
-    replacePipe,
-    NavBarComponent,
-    Error404Component,
-    CourseInfoComponent
-  ],
+  declarations: [AppComponent, Error404Component],
   imports: [
     BrowserModule,
-    FormsModule,
     HttpClientModule,
     RouterModule.forRoot([
       {
-        path:'', redirectTo: 'courses', pathMatch: 'full'
+        path: '',
+        redirectTo: 'courses',
+        pathMatch: 'full',
       },
       {
-        path:'courses', component: CourseListComponent
+        path: '**',
+        component: Error404Component,
       },
-      {
-        path:'courses/info/:id', component: CourseInfoComponent
-      },
-      {
-        path:'**', component: Error404Component
-      }
-      
-    ])
+    ]),
+    CourseModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
